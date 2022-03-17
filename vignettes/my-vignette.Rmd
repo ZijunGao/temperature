@@ -1,0 +1,40 @@
+---
+title: "Body temperature percentile vignette"
+author: 
+  - name: Zijun Gao
+    affiliation: Department of Statistics, Stanford University
+  - name: Trevor Hastie
+    affiliation: Department of Statistics and Department of Biomedical Data Science, Stanford University
+date: "<small>`r Sys.Date()`</small>"
+output:
+  html_document:
+    toc: no
+    toc_depth: 3
+    number_sections: yes
+    toc_float:
+      collapsed: no
+    code_folding: show
+    theme: cerulean
+vignette: >
+  %\VignetteIndexEntry{temperature vignette} 
+  %\VignetteEngine{knitr::rmarkdown} 
+  %\VignetteEncoding{UTF-8}{inputenc}
+---
+
+```{r global setting, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  tidy = FALSE
+)
+```
+
+
+In this vignette, we will introduce how to use the R package to predict body temperature percentiles.
+
+TODO!!!
+
+## Appendix A. Percentile prediction of new subjects (Oct. 15)
+
+
+
