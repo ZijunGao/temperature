@@ -1,5 +1,5 @@
 ---
-title: "Body temperature percentile vignette"
+title: "temperature vignette"
 author: 
   - name: Zijun Gao
     affiliation: Department of Statistics, Stanford University
@@ -29,12 +29,65 @@ knitr::opts_chunk$set(
 )
 ```
 
+In this vignette, we will introduce how to use the R package _temperature_ to study the distribution of body temperatures. We first install and load the package.
+```{r}
+library("temperature")
+```
 
-In this vignette, we will introduce how to use the R package to predict body temperature percentiles.
+We prepare the data frame containing features of subjects. The data frame should contain the following five features: 
 
-TODO!!!
+  * time: the time when the temperature is measured or to be computed at. The _time_ should be a character of the format hh:mm, e.g., 08:30 and 12:00. The _time_ should be no earlier than 07:00 or later than 18:00 within a day.
+  * gender: genders of subjects. The _gender_ should take one of the three values: "male", "female.pre" for ladies before the ceasing of menstruation, and "female.post" for ladies after the ceasing of menstruation.
+  * age: ages of subjects. The _age_ should be numeric and rounded to the nearest integer. The _age_ should be no smaller than 20 or larger than 80.
+  * height: heights of subjects (m). The _height_ should be numeric, contain two decimals, and trailing zeros should be removed, e.g., 1.78 and 1.6. The _height_ should be no smaller than 1.38 or larger than 2.13.
+  * weight: weights of subjects (kg). The _weight_ should be numeric and rounded to the nearest integer. The _weight_ should be no smaller than 30 or larger than 181.
 
-## Appendix A. Percentile prediction of new subjects (Oct. 15)
+In below, we create an example data frame with three subjects.
+```{r data}
+data = data.frame(matrix(nrow = 0, ncol = 5))
+colnames(data) = c("time", "gender", "age", "height", "weight")
+data[1,] = c("08:00", "male", 30, 1.8, 70)
+data[2,] = c("12:00", "female.pre", 30, 1.7, 60)
+data[3,] = c("14:00", "female.post", 70, 1.6, 50)
+
+data
+```
 
 
+# Percentile to temperature
 
+In this section, we display how to compute the body temperature corresponding to a target percentile for a given subject. 
+
+We add a column named _percentile_ to the current data frame. Next we use _percentile.to.temperature_ to compute the temperature.
+```{r percentile to temperature}
+data$percentile = c(50,95,99) # 50%, 95%, 99% percentiles for the three subjects, respectively
+percentile.to.temperature(data)
+```
+The predicted body temperature at the $50\%$ percentile for the first subject is $97.80 ^{\circ}F$. Similar for other subjects at the given percentiles.
+
+Given a subject, we can plot the predicted temperatures from the $1\%$ percentile to the $99\%$ percentile. The figure below demonstrates the temperature curve of the first subject in the data frame.
+```{r percentile to temperature curve}
+data.curve = data[rep(1,99),]
+data.curve$percentile = seq(1,99)
+plot(1:99, percentile.to.temperature(data.curve), pch = 16, xlab = "percentile (%)", ylab = "tempertaure (\u00B0F)")
+```
+
+
+# Temperature to percentile
+
+In this section, we display how to compute the percentile corresponding to the body temperature of a given subject. 
+
+We add a column named _temperature_ to the current data frame. Next, we use _temperature.to.percentile_ to compute the percentile.
+```{r temperature to percentile}
+data$temperature = c(98,98,98)
+temperature.to.percentile(data)
+```
+For the first subject, the body temperature $98 ^{\circ}F$ is around the $67\%$ percentile. Similar for other subjects. We remark that, if the body temperatures are below the $1\%$ percentile or above the $99\%$ percentile, the function will output $-1$ and $101$, respectively.
+
+Given a subject, we can plot the cumulative distribution of his or her temperature and highlight the observed value.
+
+```{r temperature to percentile curve}
+plot(percentile.to.temperature(data.curve), 1:99/100, pch = 16, xlab = "tempertaure (\u00B0F)", ylab = "probability")
+points(x = data$temperature[1], y = temperature.to.percentile(data)[1]/100, col = "red", pch = 16, cex = 1.5)
+text(label = "observed temperature", x = data$temperature[1]-0.5, y = temperature.to.percentile(data)[1]/100+0.05)
+```

@@ -1,15 +1,16 @@
 Package: temperature
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Temperature.
+Version: 0.1.1
+Date: 2022-3-17
+Authors@R: c(person("Zijun", "Gao", role = c("aut","cre"), email = "zijungao@stanford.edu"),
+	     person("Trevor", "Hastie", role=c("aut")))
+Description: Implemenentation of functions predicting body temperature at a given percentile or computing the percentile of a given body temperature.
+License: GPL-2
 Encoding: UTF-8
-LazyData: true
-Suggests: 
-    knitr,
-    rmarkdown
+RoxygenNote: 7.1.2
+LinkingTo: Rcpp
+Imports: latex2exp, utils, grDevices, graphics, stats
+Suggests: knitr, lars, testthat, xfun, rmarkdown
+Depends: R (>= 3.5.0)
 VignetteBuilder: knitr
