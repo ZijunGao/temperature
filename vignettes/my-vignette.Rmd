@@ -31,8 +31,6 @@ knitr::opts_chunk$set(
 
 In this vignette, we will introduce how to use the R package _temperature_ to study the distribution of body temperature. We first install and load the package.
 ```{r}
-# library(devtools)
-# install_github("ZijunGao/temperature")
 library("temperature")
 ```
 
