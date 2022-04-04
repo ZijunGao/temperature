@@ -3,6 +3,4 @@
 export(percentile.to.temperature)
 export(temp_app)
 export(temperature.to.percentile)
-importFrom(shiny,runApp)
 importFrom(stats,approx)
-importFrom(utils,read.csv)

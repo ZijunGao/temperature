@@ -4,7 +4,10 @@
 \alias{temp_app}
 \title{temp_app}
 \usage{
-temp_app()
+temp_app(app = "webapp")
+}
+\arguments{
+\item{app}{the name of the app}
 }
 \description{
 This function calls the visualization app.

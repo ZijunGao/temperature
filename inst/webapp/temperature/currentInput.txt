@@ -1,2 +1,0 @@
-"gender" "age" "sizeUnit" "height" "height2" "weight" "tempUnit" "temp"
-"1" "female" 39 "metric" 1.8 0 50 "CD" 35

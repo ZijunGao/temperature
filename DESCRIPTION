@@ -10,7 +10,8 @@ License: GPL-2
 Encoding: UTF-8
 RoxygenNote: 7.1.2
 LinkingTo: Rcpp
-Imports: latex2exp, utils, grDevices, graphics, stats
+Imports: latex2exp, utils, grDevices, graphics, stats, dplyr, hms, plotly, splines 
 Suggests: knitr, lars, testthat, xfun, rmarkdown
-Depends: R (>= 3.5.0)
+Depends: R (>= 3.5.0), shiny
 VignetteBuilder: knitr
+LazyData: true

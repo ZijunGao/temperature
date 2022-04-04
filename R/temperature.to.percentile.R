@@ -2,7 +2,6 @@
 #'
 #' This function computes the percentile corresponding to a body temperature for a given subject.
 #'
-#' @importFrom utils read.csv
 #' @importFrom stats approx
 #'
 #' @param data data.frame recording the information of subjects, and each row represents a subject. The \code{data} should contain at least six columns:
@@ -33,7 +32,7 @@ temperature.to.percentile = function(data){
   n = dim(data)[1]
 
   # temperature to percentile
-  quantileCurves = temperature:::baseline[data$time,] + temperature:::gender[data$gender,] + temperature:::age[as.character(data$age),] + temperature:::height[as.character(data$height),] + temperature:::weight[as.character(data$weight),]
+  quantileCurves = baseline[data$time,] + gender[data$gender,] + age[as.character(data$age),] + height[as.character(data$height),] + weight[as.character(data$weight),]
   result = apply(cbind(data$temperature, quantileCurves), 1, function(input){approx(x = input[-1], y = seq(1,99), xout = input[1], method = "linear", rule = 1, ties = mean)$y})
 
   # extreme values

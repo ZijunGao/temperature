@@ -2,8 +2,6 @@
 #'
 #' This function computes the body temperature corresponding to a percentile for a given subject.
 #'
-#' @importFrom utils read.csv
-#'
 #' @param data data.frame recording the information of subjects, and each row represents a subject. The \code{data} should contain at least six columns:
 #' \itemize{
 #' \item percentile: percentile to compute temperature at. The \code{percentile} should be numeric. The \code{percentile} should be rounded to the nearest integer. The \code{percentile} should be no smaller than 1 or larger than 99.
@@ -33,15 +31,8 @@ percentile.to.temperature = function(data){
   if(min(data$percentile) < 1){stop("The minimal percentile allowed is 1%.")}
   n = dim(data)[1]
 
-  # read in reference data
-  # baseline = read.csv(file = "./data/baselineFull.csv", row.names = "time")
-  # age = read.csv(file = "./data/ageFull.csv", row.names = "age")
-  # gender = read.csv(file = "./data/genderFull.csv", row.names = "gender")
-  # height = read.csv(file = "./data/heightFull.csv", row.names = "height")
-  # weight = read.csv(file = "./data/weightFull.csv", row.names = "weight")
-
   # percentile to temperature
-  quantileCurves = temperature:::baseline[data$time,] + temperature:::gender[data$gender,] + temperature:::age[as.character(data$age),] + temperature:::height[as.character(data$height),] + temperature:::weight[as.character(data$weight),]
+  quantileCurves = baseline[data$time,] + gender[data$gender,] + age[as.character(data$age),] + height[as.character(data$height),] + weight[as.character(data$weight),]
   result = quantileCurves[cbind(seq(1,n), as.numeric(data$percentile))]
 
   names(result) = NULL
