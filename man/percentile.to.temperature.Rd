@@ -24,6 +24,7 @@ The function returns of a vector representing the temperatures in Fahrenheit cor
 This function computes the body temperature corresponding to a percentile for a given subject.
 }
 \examples{
+data = data.frame(percentile = c(50, 95, 99), time = c("08:00", "12:00", "14:00"), gender = c("male", "female.pre", "female.post"), age = c(30, 30, 70), height = c(1.8, 1.78, 1.6), weight = c(70, 60, 50.5))
 percentile.to.temperature(data)
 
 }
