@@ -36,20 +36,15 @@ library("temperature")
 
 We prepare a data frame containing features of subjects. The data frame should contain the following five items: 
 
-  * time: the time when the temperature is measured or to be computed at. The _time_ should be a character of the format hh:mm, e.g., 08:30 and 12:00. The _time_ should be no earlier than 07:00 or later than 18:00 within a day.
-  * gender: genders of subjects. The _gender_ should take one of the three values: "male", "female.pre" for ladies before the ceasing of menstruation, and "female.post" for ladies after the ceasing of menstruation.
-  * age: ages of subjects. The _age_ should be numeric and rounded to the nearest integer. The _age_ should be no smaller than 20 or larger than 80.
-  * height: heights of subjects (m). The _height_ should be numeric, contain two decimals, and trailing zeros should be removed, e.g., 1.78 and 1.6. The _height_ should be no smaller than 1.38 or larger than 2.13.
-  * weight: weights of subjects (kg). The _weight_ should be numeric and rounded to the nearest integer. The _weight_ should be no smaller than 30 or larger than 181.
+  * time: the time to compute the temperature at. The \code{time} should be a character of the format hh:mm, e.g., "08:30" and "12:00". The \code{time} should be no earlier than 07:00 or later than 18:00 within a day.
+  * gender: gender of the subject. The \code{gender} should be a character. There are three possible values: "male", "female.pre" for ladies before menopause, and "female.post" for ladies after menopause. If the menopause condition in not available, a default rule regards female no younger than 40 as post-menopause.
+  * age: age of the subject. The \code{age} should be numeric and will be rounded to the nearest integer. The \code{age} should be no smaller than 20 or larger than 80.
+  * height: height of the subject (in meter). The \code{height} should be numeric and will be rounded to two decimal places. The \code{height} should be no smaller than 1.38 or larger than 2.13.
+  * weight: weight of the subject (in kilogram). The \code{weight} should be numeric and will be rounded to the nearest integer. The \code{weight} should be no smaller than 30 or larger than 181.
 
 In below, we create an example data frame with three subjects.
 ```{r data}
-data = data.frame(matrix(nrow = 0, ncol = 5))
-colnames(data) = c("time", "gender", "age", "height", "weight")
-data[1,] = c("08:00", "male", 30, 1.8, 70)
-data[2,] = c("12:00", "female.pre", 30, 1.73, 60)
-data[3,] = c("14:30", "female.post", 70, 1.6, 50)
-
+data = data.frame(time = c("08:00", "12:00", "14:00"), gender = c("male", "female.pre", "female.post"), age = c(30, 30, 70), height = c(1.8, 1.78, 1.6), weight = c(70, 60, 50.5))
 data
 ```
 

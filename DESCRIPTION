@@ -1,17 +1,17 @@
 Package: temperature
 Type: Package
-Title: Temperature.
-Version: 0.1.1
+Title: Body Temperature Distribution Characterization
+Version: 0.1.2
 Date: 2022-3-17
 Authors@R: c(person("Zijun", "Gao", role = c("aut","cre"), email = "zijungao@stanford.edu"),
 	     person("Trevor", "Hastie", role=c("aut")))
-Description: Implemenentation of functions predicting body temperature at a given percentile or computing the percentile of a given body temperature.
+Description: Implemenentation of functions predicting the body temperature at a given percentile or computing the percentile of a given body temperature.
 License: GPL-2
 Encoding: UTF-8
 RoxygenNote: 7.1.2
 LinkingTo: Rcpp
-Imports: latex2exp, utils, grDevices, graphics, stats, dplyr, hms, plotly, splines 
+Imports: stats, hms
 Suggests: knitr, lars, testthat, xfun, rmarkdown
-Depends: R (>= 3.5.0), shiny
+Depends: R (>= 3.5.0), shiny, dplyr, plotly
 VignetteBuilder: knitr
 LazyData: true

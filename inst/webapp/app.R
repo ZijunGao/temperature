@@ -1,4 +1,4 @@
-# temperature quantile plots
+# visualization of body temperature quantiles
 ui = fluidPage(
   headerPanel("Personalized Temperature Range Chart"),
   headerPanel(""),
@@ -15,7 +15,7 @@ ui = fluidPage(
 
     fluidRow(
       column(4, style='padding:0px;',
-        radioButtons(inputId = "sizeUnit", label = "Size Units", choices = c("Metric" = "metric", "American" = "American"), selected = initial$sizeUnit, width = "400px", inline = FALSE)
+        radioButtons(inputId = "sizeUnit", label = "Size Unit", choices = c("Metric" = "metric", "American" = "American"), selected = initial$sizeUnit, width = "400px", inline = FALSE)
       ),
       column(4, style='padding:0px;',
         # only show this panel if the Metric unit is used
@@ -53,7 +53,7 @@ ui = fluidPage(
     ),
     fluidRow(
       column(4, style='padding:0px;',
-        radioButtons(inputId = "tempUnit", label = "Temperature Units", choices = c( "\u00B0F" = "FD", "\u00B0C" = "CD"), selected = initial$tempUnit, width = "400px", inline = FALSE)
+        radioButtons(inputId = "tempUnit", label = "Temperature Unit", choices = c( "\u00B0F" = "FD", "\u00B0C" = "CD"), selected = initial$tempUnit, width = "400px", inline = FALSE)
       ),
       # only show this if FD is used
       column(7, style='padding:0px;',
@@ -95,13 +95,11 @@ ui = fluidPage(
 server = function(input, output, session){
   output$quantilePlot = renderPlotly({
     client_time <- reactive(as.numeric(input$client_time) / 1000) # in s
-    time_zone_offset <- reactive(as.numeric(input$client_time_zone_offset) * 60 ) # in s
+    time_zone_offset <- reactive(as.numeric(input$client_time_zone_offset) * 60 ) # in second
     currentTime = reactive((client_time() - time_zone_offset()) %% 86400)
-    # output$local = renderText(currentTime()) # debug
     currentTimeIndex = round(((currentTime()/60 + 17 * 60)/15) %% 96) + 1
     if(currentTimeIndex > 68){currentTimeIndex = 1
     } else if(currentTimeIndex > 45){currentTimeIndex = 45}
-    # output$local = renderText(currentTimeIndex) # debug
 
     # check inputs
     validate(need(input$gender != "", "Please input your gender"))
@@ -147,7 +145,7 @@ server = function(input, output, session){
       temp = input$tempFD
     }
 
-    # quantile model
+    # gender
     if(input$gender == "male"){
       gender.plus = "male"
     } else if(input$age < 40){
@@ -155,18 +153,17 @@ server = function(input, output, session){
     } else {
       gender.plus = "female.post"
     }
-    pred_data=expand.grid(gender.plus=gender.plus, age_yrs=input$age,height_m=height.transform,weight_kg=weight.transform,TIME_HOUR=seq(7,18,by = 0.25))
 
     # plot
     percentileLevel = c(1,5,25,50,75,95,99)
-    preds = baseline[seq(1,45)*15-14,percentileLevel] + gender[rep(gender.plus,45),percentileLevel] + age[rep(as.character(input$age),45), percentileLevel] + height[rep(as.character(height.transform),45),percentileLevel] + weight[rep(as.character(weight.transform),45),percentileLevel] # to be deleted
+    preds = baseline[seq(1,45)*15-14,percentileLevel] + gender[rep(gender.plus,45),percentileLevel] + age[rep(as.character(input$age),45), percentileLevel] + height[rep(as.character(height.transform),45),percentileLevel] + weight[rep(as.character(weight.transform),45),percentileLevel]
     if(input$tempUnit == "FD"){
-      preds = round(preds, digits=2) # to be deleted
+      preds = round(preds, digits=2)
     } else if(input$tempUnit == "CD"){
-      preds = round((preds - 32)*5/9, digits=2) # to be deleted
+      preds = round((preds - 32)*5/9, digits=2)
     }
-    start = as_hms("00:00:00")
-    time =  as_hms(start +  seq(3600 * 7, 3600 * 18, by = 15 * 60))
+    start = hms::as_hms("00:00:00")
+    time =  hms::as_hms(start +  seq(3600 * 7, 3600 * 18, by = 15 * 60))
     plotData = data.frame(time, preds); colnames(plotData) = c("Time", "quantile1", "quantile5", "quantile25", "quantile50", "quantile75", "quantile95", "quantile99")
     plotData$quantile1Name = NA; plotData$quantile1Name[dim(plotData)[1]] = "1%"
     plotData$quantile5Name = NA; plotData$quantile5Name[dim(plotData)[1]] = "5%"

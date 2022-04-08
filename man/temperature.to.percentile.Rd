@@ -7,14 +7,14 @@
 temperature.to.percentile(data)
 }
 \arguments{
-\item{data}{data.frame recording the information of subjects, and each row represents a subject. The \code{data} should contain at least six columns:
+\item{data}{a data.frame recording covariates of subjects, and each row represents a subject. The \code{data} should contain at least six named columns:
 \itemize{
-\item temperature: temperatures of subjects in Fahrenheit. The \code{temperature} should be numeric.
-\item time: the time when the \code{temperature} is taken. The \code{time} should be a character. The format should be hh:mm, e.g., 08:30 and 12:00. The \code{time} should be no earlier than 07:00 or later than 18:00 within a day.
-\item gender: genders of subjects. The \code{gender} should be a character. There are three possible values: "male", "female.pre" for ladies before the ceasing of menstruation, and "female.post" for ladies after the ceasing of menstruation.
-\item age: ages of subjects. The \code{age} should be numeric. The \code{age} should be rounded to the nearest integer. The \code{age} should be no smaller than 20 or larger than 80.
-\item height: heights of subjects (m). The \code{height} should be numeric. The \code{height} should contain two decimals and trailing zeros should be removed, e.g., 1.78 and 1.6. The \code{height} should be no smaller than 1.38 or larger than 2.13.
-\item weight: weights of subjects (kg). The \code{weight} should be numeric. The \code{weight} should be rounded to the nearest integer. The \code{weight} should be no smaller than 30 or larger than 181.
+\item temperature: temperature of the subject (in Fahrenheit). The \code{temperature} should be numeric.
+\item time: the time when the temperature is taken. The \code{time} should be a character of the format hh:mm, e.g., "08:30" and "12:00". The \code{time} should be no earlier than 07:00 or later than 18:00 within a day.
+\item gender: gender of the subject. The \code{gender} should be a character. There are three possible values: "male", "female.pre" for ladies before menopause, and "female.post" for ladies after menopause. If the menopause condition in not available, a default rule regards female no younger than 40 as post-menopause.
+\item age: age of the subject. The \code{age} should be numeric and will be rounded to the nearest integer. The \code{age} should be no smaller than 20 or larger than 80.
+\item height: height of the subject (in meter). The \code{height} should be numeric and will be rounded to two decimal places. The \code{height} should be no smaller than 1.38 or larger than 2.13.
+\item weight: weight of the subject (in kilogram). The \code{weight} should be numeric and will be rounded to the nearest integer. The \code{weight} should be no smaller than 30 or larger than 181.
 }}
 }
 \value{
@@ -24,11 +24,6 @@ The function returns of a vector representing the percentiles corresponding to t
 This function computes the percentile corresponding to a body temperature for a given subject.
 }
 \examples{
-data = data.frame(matrix(nrow = 0, ncol = 6))
-colnames(data) = c("temperature", "time", "gender", "age", "height", "weight")
-data[1,] = c(98, "08:00", "male", 30, 1.8, 70)
-data[2,] = c(98, "12:00", "female.pre", 30, 1.7, 60)
-data[3,] = c(105, "14:00", "female.post", 70, 1.6, 50)
 temperature.to.percentile(data)
 
 }

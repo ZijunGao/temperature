@@ -4,11 +4,8 @@
 \alias{temp_app}
 \title{temp_app}
 \usage{
-temp_app(app = "webapp")
-}
-\arguments{
-\item{app}{the name of the app}
+temp_app()
 }
 \description{
-This function calls the visualization app.
+This function calls the visualization app. The app takes in the covariates of a subject (gender, age, weight, height, temperature) and outputs the 1\%, 5\%, 25\%, 50\%, 75\%, 95\%, 99\% percentiles of the body temperature from 7:00 to 18:00.
 }
