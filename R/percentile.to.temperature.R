@@ -15,7 +15,7 @@
 #' @return The function returns of a vector representing the temperatures in Fahrenheit corresponding to the given percentiles.
 #'
 #' @examples
-# data = data.frame(percentile = c(50, 95, 99), time = c("08:00", "12:00", "14:00"), gender = c("male", "female.pre", "female.post"), age = c(30, 30, 70), height = c(1.8, 1.78, 1.6), weight = c(70, 60, 50.5))
+#' data = data.frame(percentile = c(50, 95, 99), time = c("08:00", "12:00", "14:00"), gender = c("male", "female.pre", "female.post"), age = c(30, 30, 70), height = c(1.8, 1.78, 1.6), weight = c(70, 60, 50.5))
 #' percentile.to.temperature(data)
 #'
 #' @export
