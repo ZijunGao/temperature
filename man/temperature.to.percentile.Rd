@@ -24,7 +24,12 @@ The function returns of a vector representing the percentiles corresponding to t
 This function computes the percentile corresponding to a body temperature for a given subject.
 }
 \examples{
-data = data.frame(temperature = c(90, 98.5, 105), time = c("08:00", "12:00", "14:00"), gender = c("male", "female.pre", "female.post"), age = c(30, 30, 70), height = c(1.8, 1.78, 1.6), weight = c(70, 60, 50.5))
+data = data.frame(temperature = c(90, 98.5, 105),
+time = c("08:00", "12:00", "14:00"),
+gender = c("male", "female.pre", "female.post"),
+age = c(30, 30, 70),
+height = c(1.8, 1.78, 1.6),
+weight = c(70, 60, 50.5))
 temperature.to.percentile(data)
 
 }

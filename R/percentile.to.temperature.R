@@ -15,7 +15,12 @@
 #' @return The function returns of a vector representing the temperatures in Fahrenheit corresponding to the given percentiles.
 #'
 #' @examples
-#' data = data.frame(percentile = c(50, 95, 99), time = c("08:00", "12:00", "14:00"), gender = c("male", "female.pre", "female.post"), age = c(30, 30, 70), height = c(1.8, 1.78, 1.6), weight = c(70, 60, 50.5))
+#' data = data.frame(percentile = c(50, 95, 99),
+#' time = c("08:00", "12:00", "14:00"),
+#' gender = c("male", "female.pre", "female.post"),
+#' age = c(30, 30, 70),
+#' height = c(1.8, 1.78, 1.6),
+#' weight = c(70, 60, 50.5))
 #' percentile.to.temperature(data)
 #'
 #' @export
@@ -32,7 +37,7 @@ percentile.to.temperature = function(data){
   data$weight = round(data$weight)
 
   # percentile to temperature
-  quantileCurves = baseline[data$time,] + gender[data$gender,] + age[as.character(data$age),] + height[as.character(data$height),] + weight[as.character(data$weight),]
+  quantileCurves = temperature::baseline[data$time,] + temperature::gender[data$gender,] + temperature::age[as.character(data$age),] + temperature::height[as.character(data$height),] + temperature::weight[as.character(data$weight),]
   result = quantileCurves[cbind(seq(1,dim(data)[1]), data$percentile)]
 
   names(result) = NULL

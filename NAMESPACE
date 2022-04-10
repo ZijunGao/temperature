@@ -3,4 +3,8 @@
 export(percentile.to.temperature)
 export(temp_app)
 export(temperature.to.percentile)
+import(dplyr)
+import(hms)
+import(plotly)
+import(shiny)
 importFrom(stats,approx)

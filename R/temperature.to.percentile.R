@@ -17,7 +17,12 @@
 #' @return The function returns of a vector representing the percentiles corresponding to the given temperatures. We use 101 or -1 to denote a temperature that is above the 99% percentile or below the 1% percentile.
 #'
 #' @examples
-#' data = data.frame(temperature = c(90, 98.5, 105), time = c("08:00", "12:00", "14:00"), gender = c("male", "female.pre", "female.post"), age = c(30, 30, 70), height = c(1.8, 1.78, 1.6), weight = c(70, 60, 50.5))
+#' data = data.frame(temperature = c(90, 98.5, 105),
+#' time = c("08:00", "12:00", "14:00"),
+#' gender = c("male", "female.pre", "female.post"),
+#' age = c(30, 30, 70),
+#' height = c(1.8, 1.78, 1.6),
+#' weight = c(70, 60, 50.5))
 #' temperature.to.percentile(data)
 #'
 #' @export
@@ -31,7 +36,7 @@ temperature.to.percentile = function(data){
   data$weight = round(data$weight)
 
   # temperature to percentile
-  quantileCurves = baseline[data$time,] + gender[data$gender,] + age[as.character(data$age),] + height[as.character(data$height),] + weight[as.character(data$weight),]
+  quantileCurves = temperature::baseline[data$time,] + temperature::gender[data$gender,] + temperature::age[as.character(data$age),] + temperature::height[as.character(data$height),] + temperature::weight[as.character(data$weight),]
   result = apply(cbind(data$temperature, quantileCurves), 1, function(input){approx(x = input[-1], y = seq(1,99), xout = input[1], method = "linear", rule = 1, ties = mean)$y})
 
   # extreme values
